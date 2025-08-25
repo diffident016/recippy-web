@@ -11,40 +11,43 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Recipe } from "@/types/recipe";
-import { X, Save } from "lucide-react";
+import { X, Save, Loader2Icon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 import { RecipeSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface RecipeFormProps {
-  recipe?: Recipe;
+  recipe: Recipe | null;
   onSubmit: (data: z.infer<typeof RecipeSchema>) => void;
   onCancel: () => void;
+  isLoading?: boolean;
 }
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-
-export const RecipeForm = ({ recipe, onSubmit, onCancel }: RecipeFormProps) => {
+export const RecipeForm = ({
+  recipe,
+  onSubmit,
+  onCancel,
+  isLoading,
+}: RecipeFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    setError,
     watch,
   } = useForm<z.infer<typeof RecipeSchema>>({
     resolver: zodResolver(RecipeSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      ingredients: "",
-      instructions: "",
-      cookTime: 1,
-      servings: 1,
-      difficulty: "Easy",
-      category: "Breakfast",
-      tags: "",
+      name: recipe?.name || "",
+      description: recipe?.description || "",
+      ingredients: recipe?.ingredients.join("\n") || "",
+      instructions: recipe?.instructions.join("\n") || "",
+      cookTime: recipe?.cookTime || 1,
+      servings: recipe?.servings || 1,
+      difficulty: recipe?.difficulty || "Easy",
+      category: recipe?.category || "Breakfast",
+      tags: recipe?.tags ? recipe.tags.join(", ") || "" : "",
     },
   });
 
@@ -66,9 +69,7 @@ export const RecipeForm = ({ recipe, onSubmit, onCancel }: RecipeFormProps) => {
               <Label htmlFor="name">Recipe Name</Label>
               <Input
                 id="name"
-                onChange={(e) =>
-                  setValue("name", e.target.value, { shouldValidate: true })
-                }
+                register={register}
                 placeholder="Enter recipe name"
                 error={errors.name}
               />
@@ -109,7 +110,9 @@ export const RecipeForm = ({ recipe, onSubmit, onCancel }: RecipeFormProps) => {
               rows={3}
             />
             {errors?.description && (
-              <p className="text-red text-xs">{errors.description.message}</p>
+              <p className="text-destructive text-xs">
+                {errors.description.message}
+              </p>
             )}
           </div>
 
@@ -119,12 +122,7 @@ export const RecipeForm = ({ recipe, onSubmit, onCancel }: RecipeFormProps) => {
               <Input
                 id="cookTime"
                 type="number"
-                value={watch("cookTime")}
-                onChange={(e) =>
-                  setValue("cookTime", Number(e.target.value), {
-                    shouldValidate: true,
-                  })
-                }
+                register={register}
                 error={errors.cookTime}
               />
             </div>
@@ -134,12 +132,7 @@ export const RecipeForm = ({ recipe, onSubmit, onCancel }: RecipeFormProps) => {
               <Input
                 id="servings"
                 type="number"
-                value={watch("servings")}
-                onChange={(e) =>
-                  setValue("servings", Number(e.target.value), {
-                    shouldValidate: true,
-                  })
-                }
+                register={register}
                 error={errors.servings}
               />
             </div>
@@ -210,17 +203,30 @@ export const RecipeForm = ({ recipe, onSubmit, onCancel }: RecipeFormProps) => {
           </div>
 
           <div className="flex gap-3 pt-4">
-            <Button type="submit" variant="recipe" className="flex-1">
-              <Save className="w-4 h-4 mr-2" />
-              {recipe ? "Update Recipe" : "Save Recipe"}
+            <Button
+              disabled={isLoading}
+              type="submit"
+              variant="recipe"
+              className="flex-1"
+            >
+              {isLoading ? (
+                <Loader2Icon className="animate-spin" />
+              ) : (
+                <Save className="w-4 h-4 mr-2" />
+              )}
+              {isLoading
+                ? "Saving, please wait..."
+                : recipe
+                ? "Update Recipe"
+                : "Save Recipe"}
             </Button>
             <Button
               type="button"
               variant="outline"
               onClick={onCancel}
               className="w-24"
+              disabled={isLoading}
             >
-              {/* <RotateCcw className="w-4 h-4 mr-2" /> */}
               Cancel
             </Button>
           </div>

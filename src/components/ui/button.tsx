@@ -22,6 +22,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         recipe:
           "bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300 transform hover:scale-101",
+        warm: "bg-accent text-accent-foreground hover:bg-accent/80 shadow-md",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

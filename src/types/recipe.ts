@@ -8,6 +8,13 @@ export interface Recipe {
   servings: number;
   difficulty: "Easy" | "Medium" | "Hard";
   category: "Breakfast" | "Lunch" | "Dinner" | "Dessert" | "Snack";
-  tags: string[];
-  createdAt: Date;
+  tags?: string[];
+  createdAt?: Date;
+}
+
+export interface PaginatedRecipes {
+  recipes: Recipe[] | [];
+  total: number;
+  page: number;
+  totalPages: number;
 }

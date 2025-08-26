@@ -24,15 +24,17 @@ export const RecipeApi = {
 
   getByPageSearch: async ({
     page = 1,
-    limit = 10,
+    limit = 6,
     search = "",
+    category = "",
   }: {
     page?: number;
     limit?: number;
     search?: string;
+    category?: string;
   }): Promise<PaginatedRecipes> => {
     const res = await api.get<PaginatedRecipes>("/search", {
-      params: { page, limit, search },
+      params: { page, limit, search, category },
     });
     return res.data;
   },

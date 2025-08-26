@@ -26,7 +26,7 @@ function SearchFilters({
     <section className="py-8 px-4 border-b">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="relative flex-1 max-w-md">
+          <div className="relative flex-1 md:max-w-md w-[80%]">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               type="search"
@@ -37,7 +37,7 @@ function SearchFilters({
             />
           </div>
 
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center md:w-fit w-[80%]">
             <Select value={categoryFilter} onValueChange={handleCategoryChange}>
               <SelectTrigger className="w-40">
                 <SelectValue />
@@ -52,7 +52,11 @@ function SearchFilters({
               </SelectContent>
             </Select>
 
-            <Button variant="recipe" onClick={() => setCurrentView("add")}>
+            <Button
+              variant="recipe"
+              onClick={() => setCurrentView("add")}
+              className="md:w-fit w-1/2"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Add Recipe
             </Button>

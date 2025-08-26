@@ -28,14 +28,23 @@ function Home() {
 
   useEffect(() => {
     getRecipes();
-  }, [currentView, currentPage]);
+  }, []);
 
-  const getRecipes = async () => {
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      getRecipes(1);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [search, categoryFilter]);
+
+  const getRecipes = async (page?: number) => {
     try {
       setIsLoading(true);
       const recipes = await RecipeApi.getByPageSearch({
-        page: currentPage,
+        page: page || currentPage,
         search: search,
+        category: categoryFilter === "All" ? "" : categoryFilter,
       });
 
       setIsLoading(false);
@@ -63,6 +72,7 @@ function Home() {
       setIsLoading(true);
       const createdRecipe = await RecipeApi.create(newRecipe);
 
+      getRecipes();
       setCurrentView("list");
       setIsLoading(false);
       toast.success("Recipe Added!", {
@@ -95,6 +105,7 @@ function Home() {
     };
     try {
       await RecipeApi.update(id, updatedRecipe);
+      getRecipes();
       setCurrentView("list");
       toast.success("Recipe updated successfully.");
     } catch (error) {
@@ -106,7 +117,7 @@ function Home() {
   const handleDeleteRecipe = async (id: string) => {
     try {
       await RecipeApi.delete(id);
-      setCurrentRecipes((prev) => prev.filter((recipe) => recipe._id !== id));
+      getRecipes();
       toast.success("Recipe deleted successfully.");
     } catch (error) {
       console.error("Error deleting recipe:", error);
@@ -161,7 +172,7 @@ function Home() {
         style={{
           backgroundImage: "url('/src/assets/images/hero.jpg')",
         }}
-        className="relative w-full min-h-[60%] flex flex-col items-center px-16 py-8 bg-no-repeat bg-cover bg-center text-header-text"
+        className="relative w-full lg:min-h-[60%] md:min-h-[50%] min-h-[40%] flex flex-col items-center md:px-16 px-8 py-8 bg-no-repeat bg-cover bg-center text-header-text"
       >
         <Navbar />
         <HeroSection />
@@ -180,7 +191,7 @@ function Home() {
       </div>
       <section className="py-8 px-4 flex">
         {isLoading ? (
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto w-full">
             <RecipeLoading />
           </div>
         ) : (
@@ -217,6 +228,7 @@ function Home() {
                     totalPages={pagination.totalPages}
                     onPageChange={(page: number) => {
                       setCurrentPage(page);
+                      getRecipes(page);
                     }}
                   />
                 )}

@@ -46,7 +46,7 @@ export const RecipeView = ({ recipe, onBack, onEdit }: RecipeViewProps) => {
               {recipe.description}
             </p>
 
-            <div className="flex items-center gap-6 text-sm">
+            <div className="flex md:flex-row flex-wrap items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <Clock className="w-5 h-5 text-accent" />
                 <span>Cook: {recipe.cookTime}m</span>

@@ -1,69 +1,75 @@
-# React + TypeScript + Vite
+# Recippy App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A beautiful, responsive recipe management application built with React, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Recipe Discovery
+- **Recipe Library**: Browse through a collection of recipes from breakfast to dessert
+- **Category Filtering**: Find recipes by meal type (Breakfast, Lunch, Dinner, Dessert, Snack)
+- **Search Functionality**: Quickly find recipes by title or ingredients
+- **Detailed Recipe Cards**: View cook time, servings, difficulty level, and creation date
 
-## Expanding the ESLint configuration
+### Recipe Management
+- **Add New Recipes**: Create your own recipes with detailed ingredients and instructions
+- **Update Recipe**: Update any details of the recipe
+- **Delete Recipe**: Delete recipe from collection
+- **Recipe Form Validation**: Ensure all recipe data is properly formatted and complete
+- **Dynamic Recipe View**: See detailed recipe instructions, ingredients, and metadata
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### User Experience
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+- **Loading States**: Smooth loading animations while fetching recipes
+- **Pagination**: Navigate through large recipe collections effortlessly
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Recipe Organization
+- **Tags System**: Organize recipes with descriptive tags
+- **Difficulty Levels**: Filter by Easy, Medium, or Hard difficulty
+- **Time-based Information**: See cook time, and serving information at a glance
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone the Repository
+```bash
+git clone https://github.com/diffident016/recippy-web.git
+cd recippy-web
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Install Dependencies
+```bash
+npm install
 ```
+
+### 3. Setup Environment Variables
+Create a `.env` file in the project root:
+
+```
+VITE_API_URL=http://localhost:5000/api
+```
+
+### 4. Run Development Server
+```bash
+npm run dev
+```
+
+### 5. Build for Production
+```bash
+npm run build
+```
+
+### 6. Preview Production Build
+```bash
+npm run preview
+```
+
+---
+
+## What technologies are used for this project?
+
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS

@@ -122,7 +122,8 @@ export const RecipeForm = ({
               <Input
                 id="cookTime"
                 type="number"
-                register={register}
+                value={watch("cookTime")}
+                onChange={(e) => setValue("cookTime", Number(e.target.value))}
                 error={errors.cookTime}
               />
             </div>
@@ -132,7 +133,8 @@ export const RecipeForm = ({
               <Input
                 id="servings"
                 type="number"
-                register={register}
+                value={watch("servings")}
+                onChange={(e) => setValue("servings", Number(e.target.value))}
                 error={errors.servings}
               />
             </div>

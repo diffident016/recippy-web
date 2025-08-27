@@ -31,7 +31,10 @@ export const RecipeCard = ({
     <Card className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 bg-gradient-to-br from-card to-recipe-cream border-0">
       <CardHeader className="pb-3 h-full">
         <div className="flex justify-between items-start">
-          <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+          <CardTitle
+            onClick={() => onView(recipe)}
+            className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors hover:cursor-pointer"
+          >
             {recipe.name}
           </CardTitle>
           <Badge variant="secondary" className="text-xs">

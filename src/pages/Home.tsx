@@ -172,7 +172,7 @@ function Home() {
         style={{
           backgroundImage: "url('/src/assets/images/hero.jpg')",
         }}
-        className="relative w-full lg:min-h-[60%] md:min-h-[50%] min-h-[40%] flex flex-col items-center md:px-16 px-8 py-8 bg-no-repeat bg-cover bg-center text-header-text"
+        className="relative w-full lg:min-h-[60%] md:min-h-[50%] min-h-[40%] flex flex-col items-center lg:px-16 md:px-10 px-8 py-8 bg-no-repeat bg-cover bg-center text-header-text"
       >
         <Navbar />
         <HeroSection />

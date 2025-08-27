@@ -73,3 +73,11 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+
+## While working on this project, I learned:
+
+- How to integrate React with a Node.js backend using REST APIs.
+- Using Vite with TypeScript for a fast and type-safe frontend setup.
+- Setting up a form with validation using React Hook Form.
+- Fast UI development using shadcn ui library and Tailwind CSS styling.
+- How helpful Axios in fetching API requests.
